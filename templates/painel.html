@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang='pt-br'>
+    <head>
+        <meta charset="utf-8">
+        <title>MOODLE Tarefas</title>
+        <link rel='stylesheet' type='text/css' href='../static/main.css'>
+    </head>
+
+    <body>
+        <table>
+            <tr>
+                <th>Curso</th>
+                <th>Tarefa</th>
+                <!-- <th>Descrição</th> -->
+                <th>Prazo</th>
+            </tr>
+            {% for event in events %}
+                <tr href="{{event['url']}}">
+                    <td>{{event['course']['fullname']}}</td>
+                    <td>{{event['name']}}</td>
+                    <!-- <td>{{event['description']}}</td> -->
+                    <td>{{time.strftime("%d/%m/%Y - %H:%M:%S", time.localtime(event['timestart']))}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <form action='logout' method='post' class='form'>
+            <input type='submit' value='logout'>
+        </form>
+    </body>
+</html>
