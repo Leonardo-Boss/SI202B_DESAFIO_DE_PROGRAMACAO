@@ -9,7 +9,8 @@ import webview
 from moodle_api import Moodle
 
 app = Flask(__name__)
-temp = os.path.join(appdirs.user_config_dir('moodle_tarefas', False), 'temp')
+directory = appdirs.user_config_dir('moodle_tarefas', False)
+temp = os.path.join(directory, 'temp')
 
 
 @app.route('/')
@@ -25,6 +26,7 @@ def index():
 @app.route('/painel', methods=['POST'])
 def login():
     if request.form['remember'] == 'true':
+        os.mkdir(directory)
         form = [request.form['username'], request.form['password']]
         with open(temp, 'wb') as file:
             pickle.dump(form, file)
@@ -35,7 +37,7 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
     if os.path.exists(temp):
-        os.remove()
+        os.rmdir(directory)
     return render_template('login.html')
 
 
