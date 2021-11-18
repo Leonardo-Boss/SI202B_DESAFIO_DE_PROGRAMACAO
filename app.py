@@ -1,6 +1,7 @@
 import time
 import pickle
 import os
+import shutil
 
 import appdirs
 from flask import Flask, render_template, request
@@ -37,7 +38,7 @@ def login():
 @app.route('/logout', methods=['POST'])
 def logout():
     if os.path.exists(temp):
-        os.rmdir(directory)
+        shutil.rmtree(directory)
     return render_template('login.html')
 
 
